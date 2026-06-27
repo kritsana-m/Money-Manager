@@ -1,0 +1,30 @@
+.fab {
+  position: fixed;
+  bottom: 84px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--color-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(196, 120, 91, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  z-index: 90;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fab:active {
+  transform: scale(0.92);
+  box-shadow: 0 2px 8px rgba(196, 120, 91, 0.25);
+}
+
+@media (min-width: 768px) {
+  .fab {
+    right: calc(50% - (var(--content-max-width) / 2) + 20px);
+  }
+}

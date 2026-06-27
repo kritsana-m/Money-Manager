@@ -1,0 +1,168 @@
+.subscription-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.subscription-card.unpaid {
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.subscription-card.unpaid:active {
+  transform: scale(0.98);
+  border-color: var(--color-accent);
+}
+
+.subscription-card.paid {
+  opacity: 0.65;
+  background: var(--color-bg-secondary);
+  border-color: transparent;
+}
+
+.sub-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.sub-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sub-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subscription-card.paid .sub-card-name {
+  text-decoration: line-through;
+  color: var(--color-text-secondary);
+}
+
+.sub-card-due {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+}
+
+.sub-card-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sub-card-price {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.subscription-card.paid .sub-card-price .amount-display {
+  color: var(--color-text-muted) !important;
+  text-decoration: line-through;
+}
+
+/* Custom Checkbox */
+.sub-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-text-muted);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: white;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.subscription-card.unpaid .sub-checkbox:active {
+  transform: scale(0.85);
+}
+
+.sub-checkbox.checked {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.subscription-card.unpaid .sub-checkbox {
+  border-color: var(--color-accent);
+}
+
+/* Last Payment Badge */
+.last-payment-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+
+.subscription-card.paid .last-payment-badge {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* Progress Container */
+.sub-card-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.sub-card-progress-bar-bg {
+  width: 60px;
+  height: 4px;
+  background-color: var(--color-border-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.sub-card-progress-bar-fill {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-base);
+}
+
+.subscription-card.paid .sub-card-progress-bar-fill {
+  background-color: var(--color-text-muted);
+}
+
+.sub-card-progress-text {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.subscription-card.paid .sub-card-progress-text {
+  color: var(--color-text-muted);
+}
+

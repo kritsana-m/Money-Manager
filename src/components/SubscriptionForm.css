@@ -1,0 +1,43 @@
+.subscription-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cycle-toggle {
+  display: flex;
+  gap: 8px;
+  background: var(--color-bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+}
+
+.cycle-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: var(--color-text-muted);
+}
+
+.cycle-btn.active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-danger {
+  background: var(--color-error);
+  color: white;
+  flex: 0.5;
+}
+
+.btn-danger:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
