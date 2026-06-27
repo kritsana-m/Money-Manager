@@ -1,0 +1,1 @@
+{"name":"Money Manager","short_name":"MoneyMgr","description":"Personal money management app","start_url":"/Money-Manager/","display":"standalone","background_color":"#FAF8F5","theme_color":"#FAF8F5","lang":"en","scope":"/Money-Manager/","icons":[{"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
