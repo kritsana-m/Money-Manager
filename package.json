@@ -12,6 +12,8 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@emnapi/core": "1.11.1",
+    "@emnapi/runtime": "1.11.1",
     "date-fns": "^4.4.0",
     "idb": "^8.0.3",
     "lucide-react": "^1.21.0",
