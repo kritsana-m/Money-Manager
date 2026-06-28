@@ -4,7 +4,7 @@ import CategoryIcon from './CategoryIcon'
 import { getDateKey } from '../utils/dates'
 import './TransactionForm.css'
 
-export default function TransactionForm({ onSubmit, onCancel, initialData = null }) {
+export default function TransactionForm({ onSubmit, onCancel, onDelete = null, initialData = null }) {
   const [type, setType] = useState(initialData?.type || 'expense')
   const [amount, setAmount] = useState(initialData?.amount?.toString() || '')
   const [category, setCategory] = useState(initialData?.category || 'food')
@@ -31,6 +31,12 @@ export default function TransactionForm({ onSubmit, onCancel, initialData = null
       note: note.trim(),
       date
     })
+  }
+
+  const handleDeleteClick = () => {
+    if (initialData && onDelete && window.confirm('Delete this transaction?')) {
+      onDelete(initialData.id)
+    }
   }
 
   // Filter categories based on type
@@ -126,9 +132,20 @@ export default function TransactionForm({ onSubmit, onCancel, initialData = null
 
       {/* Actions */}
       <div className="form-actions">
-        <button type="button" className="btn btn-secondary" onClick={onCancel}>
-          Cancel
-        </button>
+        {initialData && onDelete ? (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={handleDeleteClick}
+            aria-label="Delete transaction"
+          >
+            Delete
+          </button>
+        ) : (
+          <button type="button" className="btn btn-secondary" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
         <button type="submit" className="btn btn-primary">
           {initialData ? 'Update' : 'Add'} {type === 'income' ? 'Income' : 'Expense'}
         </button>

@@ -57,3 +57,15 @@
   background: var(--color-accent);
   border-radius: 0 0 3px 3px;
 }
+
+.bottom-nav-version {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
