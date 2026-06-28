@@ -29,6 +29,7 @@ export default function BottomNav() {
           </button>
         )
       })}
+      <span className="bottom-nav-version">v1.0.0</span>
     </nav>
   )
 }

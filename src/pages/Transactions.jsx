@@ -55,6 +55,8 @@ export default function Transactions() {
 
   const handleDelete = async (id) => {
     await deleteTransaction(id)
+    setSheetOpen(false)
+    setEditingTransaction(null)
   }
 
   const handleCloseSheet = () => {
@@ -182,6 +184,7 @@ export default function Transactions() {
         <TransactionForm
           onSubmit={handleSubmit}
           onCancel={handleCloseSheet}
+          onDelete={handleDelete}
           initialData={editingTransaction}
         />
       </BottomSheet>
