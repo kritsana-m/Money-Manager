@@ -20,9 +20,12 @@
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: 0 var(--space-5) var(--space-5);
   overflow-y: auto;
+  overflow-x: hidden;
   animation: slideUp var(--transition-spring);
   padding-bottom: calc(var(--space-5) + var(--safe-area-bottom));
   box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
 }
 
 .bottom-sheet-handle {
@@ -67,6 +70,8 @@
 
 .bottom-sheet-content {
   padding-bottom: var(--space-2);
+  width: 100%;
+  overflow-x: hidden;
 }
 
 @keyframes slideUp {
