@@ -111,3 +111,34 @@ To add budget limits:
 ### Feature Extension: Cloud Sync
 1. Use a sync state queue or timestamp comparisons (e.g., `updatedAt` / `deletedAt`).
 2. Push local database changes asynchronously when network state turns online (`window.addEventListener('online')`), preserving offline-first interactions.
+
+---
+
+## 6. Versioning & Changelog
+
+### A. Version Constant (`src/utils/version.js`)
+The app version is defined in `APP_VERSION` (e.g. `'1.0.0'`) and displayed as `v1.0.0` in the bottom nav bar.
+
+### B. Changelog Entries
+When adding or updating a feature, you MUST:
+1. Increment the `APP_VERSION` in `src/utils/version.js` following [semver](https://semver.org/) (major.minor.patch).
+2. Add a new entry to the `CHANGELOG` array in the same file with the new version, today's date, and a list of changes.
+3. Update `package.json` version to match `APP_VERSION`.
+
+### C. Changelog Display
+The changelog is shown automatically on first app open after a version update. It uses a bottom sheet (`BottomSheet` + `ChangelogSheet` component) triggered by comparing the current `APP_VERSION` with the last seen version stored in `localStorage` under key `money-manager-version`.
+
+Example of adding a changelog entry:
+```javascript
+export const CHANGELOG = [
+  {
+    version: '1.1.0',
+    date: '2026-07-01',
+    changes: [
+      'Added budget tracking with monthly limits',
+      'Export transactions to CSV',
+    ],
+  },
+  // ... previous entries
+]
+```
