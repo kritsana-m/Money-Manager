@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Receipt, RefreshCw } from 'lucide-react'
+import { Receipt, RefreshCw, Cloud } from 'lucide-react'
+import { APP_VERSION } from '../utils/version'
 import './BottomNav.css'
 
 export default function BottomNav() {
@@ -8,7 +9,8 @@ export default function BottomNav() {
 
   const tabs = [
     { path: '/', label: 'Transactions', icon: Receipt },
-    { path: '/subscriptions', label: 'Subscriptions', icon: RefreshCw }
+    { path: '/subscriptions', label: 'Subscriptions', icon: RefreshCw },
+    { path: '/sync', label: 'Sync', icon: Cloud }
   ]
 
   return (
@@ -29,7 +31,7 @@ export default function BottomNav() {
           </button>
         )
       })}
-      <span className="bottom-nav-version">v1.0.0</span>
+      <span className="bottom-nav-version">v{APP_VERSION}</span>
     </nav>
   )
 }
