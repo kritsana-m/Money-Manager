@@ -3,7 +3,7 @@ const TOKEN_URL = 'https://oauth2.googleapis.com/token'
 const DRIVE_API_URL = 'https://www.googleapis.com/drive/v3/files'
 const DRIVE_UPLOAD_URL = 'https://www.googleapis.com/upload/drive/v3/files'
 
-const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
+const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '510909458389-d64kmb6flja5q3go0d543u46hsq8cjsm.apps.googleusercontent.com'
 const REDIRECT_URI = window.location.origin + window.location.pathname
 const SCOPES = 'https://www.googleapis.com/auth/drive.appdata'
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { initiateLogin, handleCallback, isLoggedIn, logout, uploadBackup, findBackupFile, downloadBackup } from '../utils/googleDrive'
 import { exportData, importData } from '../db/backup'
-import { Cloud, CloudOff, RefreshCw, LogOut, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Cloud, CloudOff, RefreshCw, LogOut, AlertCircle } from 'lucide-react'
 import './SyncBackup.css'
 
 export default function SyncBackup() {
@@ -80,57 +80,63 @@ export default function SyncBackup() {
   }
 
   return (
-    <div className="sync-backup-container">
-      <div className="sync-header">
-        {connected ? (
-          <div className="status connected">
-            <Cloud className="icon" />
-            <span>Connected to Google Drive</span>
-          </div>
-        ) : (
-          <div className="status disconnected">
-            <CloudOff className="icon" />
-            <span>Not connected</span>
-          </div>
-        )}
+    <div className="page">
+      <div className="page-header">
+        <h1 className="page-title">Sync & Backup</h1>
       </div>
 
-      {error && (
-        <div className="error-msg">
-          <AlertCircle size={16} />
-          {error}
+      <div className="card sync-card">
+        <div className="sync-status-row">
+          {connected ? (
+            <div className="sync-status sync-status--connected">
+              <Cloud size={20} />
+              <span>Connected to Google Drive</span>
+            </div>
+          ) : (
+            <div className="sync-status sync-status--disconnected">
+              <CloudOff size={20} />
+              <span>Not connected</span>
+            </div>
+          )}
         </div>
-      )}
 
-      <div className="sync-actions">
+        {error && (
+          <div className="sync-error">
+            <AlertCircle size={16} />
+            {error}
+          </div>
+        )}
+
         {!connected ? (
-          <button 
-            className="btn-primary" 
+          <button
+            className="sync-btn sync-btn--connect"
             onClick={initiateLogin}
             disabled={loading}
           >
-            {loading ? <RefreshCw className="spin" /> : 'Connect Google Drive'}
+            {loading ? <RefreshCw className="sync-spin" size={18} /> : null}
+            {loading ? 'Connecting...' : 'Connect Google Drive'}
           </button>
         ) : (
-          <>
-            <div className="backup-info">
+          <div className="sync-connected-content">
+            <div className="sync-backup-info">
               {lastBackup ? (
                 <p>Last backup: {new Date(lastBackup.modifiedTime).toLocaleString()}</p>
               ) : (
-                <p>No backup found on Drive</p>
+                <p className="sync-no-backup">No backup found on Drive</p>
               )}
             </div>
-            
-            <div className="btn-group">
-              <button 
-                className="btn-sync" 
+
+            <div className="sync-btn-group">
+              <button
+                className="sync-btn sync-btn--backup"
                 onClick={handleBackup}
                 disabled={loading}
               >
-                {loading ? <RefreshCw className="spin" /> : 'Backup Now'}
+                {loading ? <RefreshCw className="sync-spin" size={18} /> : null}
+                {loading ? 'Backing up...' : 'Backup Now'}
               </button>
-              <button 
-                className="btn-restore" 
+              <button
+                className="sync-btn sync-btn--restore"
                 onClick={handleRestore}
                 disabled={loading || !lastBackup}
               >
@@ -138,10 +144,11 @@ export default function SyncBackup() {
               </button>
             </div>
 
-            <button className="btn-logout" onClick={handleLogout}>
-              <LogOut size={16} /> Sign Out
+            <button className="sync-btn sync-btn--logout" onClick={handleLogout}>
+              <LogOut size={16} />
+              Sign Out
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>
