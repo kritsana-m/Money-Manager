@@ -1,6 +1,16 @@
-export const APP_VERSION = '1.0.0'
+export const APP_VERSION = '1.0.1'
 
 export const CHANGELOG = [
+  {
+    version: '1.0.1',
+    date: '2026-06-29',
+    changes: [
+      'Added Google Drive Sync & Backup feature',
+      'Implemented OAuth 2.0 PKCE for secure client-side authentication',
+      'Uses drive.appdata scope to keep backups private to the app',
+      'Added manual backup and restore functionality',
+    ],
+  },
   {
     version: '1.0.0',
     date: '2026-06-28',

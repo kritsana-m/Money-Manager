@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Transactions from './pages/Transactions'
 import Subscriptions from './pages/Subscriptions'
+import SyncBackup from './components/SyncBackup'
 import BottomNav from './components/BottomNav'
 import BottomSheet from './components/BottomSheet'
 import ChangelogSheet from './components/ChangelogSheet'
@@ -30,6 +31,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Transactions />} />
           <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/sync" element={<SyncBackup />} />
         </Routes>
       </div>
       <BottomNav />
