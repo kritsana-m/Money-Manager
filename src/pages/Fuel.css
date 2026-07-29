@@ -1,0 +1,89 @@
+.fuel-summary,
+.fuel-list {
+  animation: fadeIn 0.2s ease;
+}
+
+.fuel-summary-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fuel-summary-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.fuel-summary-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fuel-summary-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fuel-summary-card-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fuel-summary-card-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fuel-list-card {
+  padding: 0 16px !important;
+}
+
+.fuel-summary-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fuel-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fuel-detail-row:not(:last-child) {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.fuel-detail-label {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.fuel-detail-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}

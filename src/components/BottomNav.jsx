@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Receipt, RefreshCw, Download } from 'lucide-react'
+import { Receipt, RefreshCw, Fuel, Download } from 'lucide-react'
 import { APP_VERSION } from '../utils/version'
 import './BottomNav.css'
 
@@ -10,6 +10,7 @@ export default function BottomNav() {
   const tabs = [
     { path: '/', label: 'Transactions', icon: Receipt },
     { path: '/subscriptions', label: 'Subscriptions', icon: RefreshCw },
+    { path: '/fuel', label: 'Fuel', icon: Fuel },
     { path: '/sync', label: 'Data', icon: Download }
   ]
 

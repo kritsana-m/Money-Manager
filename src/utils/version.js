@@ -1,6 +1,16 @@
-export const APP_VERSION = '1.0.2'
+export const APP_VERSION = '1.1.0'
 
 export const CHANGELOG = [
+  {
+    version: '1.1.0',
+    date: '2026-07-29',
+    changes: [
+      'New Fuel Tracker screen to log fill-ups and calculate km/L efficiency',
+      'Track odometer, liters, cost per fill-up with automatic km/L computation',
+      'Monthly summary with cost, liters, distance, and efficiency stats',
+      'New "Fuel" tab in the bottom navigation bar',
+    ],
+  },
   {
     version: '1.0.2',
     date: '2026-06-29',
