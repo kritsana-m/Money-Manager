@@ -1,7 +1,7 @@
 import { openDB } from 'idb'
 
 const DB_NAME = 'money-manager'
-const DB_VERSION = 1
+const DB_VERSION = 2
 
 let dbPromise = null
 
@@ -39,6 +39,18 @@ export function getDB() {
           payStore.createIndex('monthKey', 'monthKey')
           payStore.createIndex('subMonth', ['subscriptionId', 'monthKey'])
         }
+
+        // Fuel records store
+        if (!db.objectStoreNames.contains('fuelRecords')) {
+          const fuelStore = db.createObjectStore('fuelRecords', {
+            keyPath: 'id',
+            autoIncrement: true
+          })
+          fuelStore.createIndex('date', 'date')
+          fuelStore.createIndex('monthKey', 'monthKey')
+          fuelStore.createIndex('odometer', 'odometer')
+          fuelStore.createIndex('dateOdometer', ['date', 'odometer'])
+        }
       }
     })
   }
@@ -47,11 +59,12 @@ export function getDB() {
 
 export async function clearAllData() {
   const db = await getDB()
-  const tx = db.transaction(['transactions', 'subscriptions', 'subscriptionPayments'], 'readwrite')
+  const tx = db.transaction(['transactions', 'subscriptions', 'subscriptionPayments', 'fuelRecords'], 'readwrite')
   await Promise.all([
     tx.objectStore('transactions').clear(),
     tx.objectStore('subscriptions').clear(),
     tx.objectStore('subscriptionPayments').clear(),
+    tx.objectStore('fuelRecords').clear(),
     tx.done
   ])
 }

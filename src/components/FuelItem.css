@@ -1,0 +1,124 @@
+.fuel-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fuel-item:active {
+  opacity: 0.7;
+}
+
+.fuel-item:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.fuel-item-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent-lighter);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fuel-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fuel-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fuel-item-date {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.fuel-item-odometer {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.fuel-item-details {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.fuel-item-liters {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.fuel-item-sep {
+  color: var(--color-border);
+  font-weight: 300;
+}
+
+.fuel-item-cost {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.fuel-item-efficiency {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.fuel-item-gauge {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.fuel-item-kml {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.fuel-item-kml.good {
+  color: var(--color-income);
+}
+
+.fuel-item-kml.ok {
+  color: var(--color-warning);
+}
+
+.fuel-item-kml.low {
+  color: var(--color-error);
+}
+
+.fuel-item-km-driven {
+  color: var(--color-text-muted);
+}
+
+.fuel-item-no-data {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.fuel-item-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
