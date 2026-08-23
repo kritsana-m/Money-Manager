@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.1.0'
+export const APP_VERSION = '1.2.0'
 
 export const CHANGELOG = [
+  {
+    version: '1.2.0',
+    date: '2026-08-23',
+    changes: [
+      'New monthly transaction calendar in the Summary view',
+      'Daily income and expense totals at a glance',
+      'Tap any active day for a detailed breakdown with net result',
+    ],
+  },
   {
     version: '1.1.0',
     date: '2026-07-29',

@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useTransactions } from '../db/useTransactions'
 import { getNextMonth, getPrevMonth, getDayLabel } from '../utils/dates'
 import MonthNavigator from '../components/MonthNavigator'
 import SummaryCards from '../components/SummaryCards'
 import ExpenseChart from '../components/ExpenseChart'
 import CategoryBreakdown from '../components/CategoryBreakdown'
+import TransactionCalendar from '../components/TransactionCalendar'
+import DayDetailSheet from '../components/DayDetailSheet'
 import TransactionItem from '../components/TransactionItem'
 import TransactionForm from '../components/TransactionForm'
 import BottomSheet from '../components/BottomSheet'
@@ -17,6 +19,7 @@ export default function Transactions() {
   const [view, setView] = useState('list') // 'list' | 'summary'
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState(null)
+  const [selectedDateKey, setSelectedDateKey] = useState(null)
 
   const {
     transactions,
@@ -30,8 +33,32 @@ export default function Transactions() {
     dailyTotals
   } = useTransactions(currentMonth)
 
-  const handlePrevMonth = () => setCurrentMonth(prev => getPrevMonth(prev))
-  const handleNextMonth = () => setCurrentMonth(prev => getNextMonth(prev))
+  // Daily summaries keyed by local calendar date (YYYY-MM-DD)
+  const dailyByDate = useMemo(() => new Map(Object.entries(groupedByDate)), [groupedByDate])
+
+  const handlePrevMonth = () => {
+    setCurrentMonth(prev => getPrevMonth(prev))
+    setSelectedDateKey(null)
+  }
+  const handleNextMonth = () => {
+    setCurrentMonth(prev => getNextMonth(prev))
+    setSelectedDateKey(null)
+  }
+
+  const handleViewToggle = (nextView) => {
+    setView(nextView)
+    setSelectedDateKey(null)
+  }
+
+  const handleSelectDay = (dateKey) => setSelectedDateKey(dateKey)
+
+  const handleCloseDayDetail = () => setSelectedDateKey(null)
+
+  const handleEditFromDayDetail = (transaction) => {
+    setSelectedDateKey(null)
+    setEditingTransaction(transaction)
+    setSheetOpen(true)
+  }
 
   const handleAdd = () => {
     setEditingTransaction(null)
@@ -83,13 +110,13 @@ export default function Transactions() {
       <div className="segmented-control" style={{ marginBottom: 20 }}>
         <button
           className={`segmented-control-btn ${view === 'list' ? 'active' : ''}`}
-          onClick={() => setView('list')}
+          onClick={() => handleViewToggle('list')}
         >
           Daily
         </button>
         <button
           className={`segmented-control-btn ${view === 'summary' ? 'active' : ''}`}
-          onClick={() => setView('summary')}
+          onClick={() => handleViewToggle('summary')}
         >
           Summary
         </button>
@@ -107,6 +134,17 @@ export default function Transactions() {
             expense={summary.totalExpense}
             net={summary.net}
           />
+
+          <div className="section" style={{ marginTop: 24 }}>
+            <TransactionCalendar
+              currentMonth={currentMonth}
+              dailyByDate={dailyByDate}
+              onPrevMonth={handlePrevMonth}
+              onNextMonth={handleNextMonth}
+              selectedDateKey={selectedDateKey}
+              onSelectDay={handleSelectDay}
+            />
+          </div>
 
           <div className="section" style={{ marginTop: 24 }}>
             <h3 className="section-title">Income vs Expenses</h3>
@@ -188,6 +226,15 @@ export default function Transactions() {
           initialData={editingTransaction}
         />
       </BottomSheet>
+
+      <DayDetailSheet
+        isOpen={!sheetOpen && !!selectedDateKey}
+        onClose={handleCloseDayDetail}
+        dateKey={selectedDateKey}
+        dayData={selectedDateKey ? groupedByDate[selectedDateKey] : null}
+        onEdit={handleEditFromDayDetail}
+        onDelete={handleDelete}
+      />
     </div>
   )
 }

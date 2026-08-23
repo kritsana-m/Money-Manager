@@ -1,0 +1,227 @@
+.transaction-calendar {
+  padding: var(--space-4);
+}
+
+/* ---------- Header ---------- */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.calendar-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.calendar-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calendar-nav-btn:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+
+.calendar-nav-btn:active {
+  transform: scale(0.92);
+}
+
+.calendar-month-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  min-width: 100px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Weekday row ---------- */
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--space-1);
+}
+
+.calendar-weekday {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding-bottom: var(--space-2);
+}
+
+/* ---------- Grid ---------- */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  animation: calendarFadeIn var(--transition-base) ease;
+}
+
+@keyframes calendarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- Cells ---------- */
+.calendar-day {
+  min-height: 52px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 2px 5px;
+  border-radius: var(--radius-md);
+  font-variant-numeric: tabular-nums;
+}
+
+.calendar-day-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  line-height: 1;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.calendar-day-btn {
+  border: none;
+  background: transparent;
+  padding: 6px 2px 5px;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calendar-day.outside-month .calendar-day-number {
+  color: var(--color-text-muted);
+  opacity: 0.4;
+}
+
+/* Activity tint — subtle warm hint, not a heatmap */
+.calendar-day.has-activity {
+  background: var(--color-accent-lighter);
+  cursor: pointer;
+}
+
+.calendar-day-btn:disabled {
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .calendar-day-btn.has-activity:not(:disabled):hover {
+    background: var(--color-accent-light);
+  }
+}
+
+.calendar-day-btn:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+.calendar-day-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* Today — subtle accent ring around the day number */
+.calendar-day.today .calendar-day-number {
+  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Selected — accent fill + inset border */
+.calendar-day-btn.selected {
+  background: var(--color-accent-light);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+/* ---------- Daily amounts ---------- */
+.calendar-day-amounts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  line-height: 1.25;
+}
+
+.calendar-day-income,
+.calendar-day-expense {
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.calendar-day-income {
+  color: var(--color-income);
+}
+
+.calendar-day-expense {
+  color: var(--color-expense);
+}
+
+/* ---------- Empty month ---------- */
+.calendar-empty-note {
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  padding-top: var(--space-3);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .calendar-grid {
+    animation: none;
+  }
+
+  .calendar-nav-btn,
+  .calendar-day-btn {
+    transition: none;
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (min-width: 480px) {
+  .calendar-day {
+    min-height: 64px;
+  }
+
+  .calendar-day-income,
+  .calendar-day-expense {
+    font-size: var(--font-size-xs);
+  }
+}
