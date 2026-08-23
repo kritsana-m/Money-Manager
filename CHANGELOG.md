@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-08-23
+### Added
+- Monthly transaction calendar in the Transactions > Summary view.
+- Daily income/expense totals per calendar day with today and selected-day states.
+- Day detail bottom sheet showing transactions grouped by type plus net result.
+
 ## [1.0.2] - 2026-06-29
 ### Added
 - JSON export/import for data backup and restore.
