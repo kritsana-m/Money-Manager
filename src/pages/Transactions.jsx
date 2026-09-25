@@ -1,5 +1,7 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useTransactions } from '../db/useTransactions'
+import { getDB } from '../db/database'
+import { parseTransactionFile, dedupeTransactions, summarizeImport } from '../utils/importTransactions'
 import { getNextMonth, getPrevMonth, getDayLabel } from '../utils/dates'
 import MonthNavigator from '../components/MonthNavigator'
 import SummaryCards from '../components/SummaryCards'
@@ -9,9 +11,10 @@ import TransactionCalendar from '../components/TransactionCalendar'
 import DayDetailSheet from '../components/DayDetailSheet'
 import TransactionItem from '../components/TransactionItem'
 import TransactionForm from '../components/TransactionForm'
+import TransactionImport from '../components/TransactionImport'
 import BottomSheet from '../components/BottomSheet'
 import FAB from '../components/FAB'
-import { Receipt } from 'lucide-react'
+import { Receipt, Upload } from 'lucide-react'
 import './Transactions.css'
 
 export default function Transactions() {
@@ -20,6 +23,12 @@ export default function Transactions() {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editingTransaction, setEditingTransaction] = useState(null)
   const [selectedDateKey, setSelectedDateKey] = useState(null)
+  const [importSheetOpen, setImportSheetOpen] = useState(false)
+  const [importPreview, setImportPreview] = useState(null)
+  const [importFileName, setImportFileName] = useState('')
+  const [importing, setImporting] = useState(false)
+  const [importError, setImportError] = useState(null)
+  const fileInputRef = useRef(null)
 
   const {
     transactions,
@@ -27,6 +36,7 @@ export default function Transactions() {
     addTransaction,
     updateTransaction,
     deleteTransaction,
+    addTransactionsBulk,
     summary,
     groupedByDate,
     categoryBreakdown,
@@ -91,14 +101,74 @@ export default function Transactions() {
     setEditingTransaction(null)
   }
 
+  const handleImportClick = () => {
+    setImportError(null)
+    fileInputRef.current?.click()
+  }
+
+  const handleFileSelect = async (e) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const text = await file.text()
+      const { transactions: parsed, errors } = parseTransactionFile(text)
+      const db = await getDB()
+      const existing = await db.getAll('transactions')
+      const { items, duplicates } = dedupeTransactions(parsed, existing)
+      setImportPreview({ items, duplicates, errors, summary: summarizeImport(items) })
+      setImportFileName(file.name)
+      setImportSheetOpen(true)
+    } catch (err) {
+      setImportError('Could not read file: ' + (err.message || 'unknown error'))
+    }
+  }
+
+  const handleConfirmImport = async () => {
+    if (!importPreview || importPreview.items.length === 0) return
+    setImporting(true)
+    try {
+      await addTransactionsBulk(importPreview.items)
+      setImportSheetOpen(false)
+      setImportPreview(null)
+    } catch (err) {
+      setImportError('Import failed: ' + (err.message || 'unknown error'))
+    } finally {
+      setImporting(false)
+    }
+  }
+
+  const handleCloseImport = () => {
+    setImportSheetOpen(false)
+    setImportPreview(null)
+  }
+
   // Sorted date keys for the list view
   const dateKeys = Object.keys(groupedByDate).sort((a, b) => b.localeCompare(a))
 
   return (
     <div className="page">
-      <div className="page-header">
+      <div className="page-header tx-header">
         <h1 className="page-title">Transactions</h1>
+        <button className="tx-import-btn" onClick={handleImportClick} aria-label="Import transactions from .txt file">
+          <Upload size={16} />
+          <span>Import</span>
+        </button>
       </div>
+      <input
+        type="file"
+        accept=".txt,text/plain"
+        ref={fileInputRef}
+        onChange={handleFileSelect}
+        style={{ display: 'none' }}
+      />
+
+      {importError && (
+        <div className="tx-import-page-error">
+          <span>{importError}</span>
+          <button onClick={() => setImportError(null)} aria-label="Dismiss">✕</button>
+        </div>
+      )}
 
       <MonthNavigator
         currentMonth={currentMonth}
@@ -235,6 +305,22 @@ export default function Transactions() {
         onEdit={handleEditFromDayDetail}
         onDelete={handleDelete}
       />
+
+      <BottomSheet
+        isOpen={importSheetOpen}
+        onClose={handleCloseImport}
+        title="Import Transactions"
+      >
+        {importPreview && (
+          <TransactionImport
+            fileName={importFileName}
+            preview={importPreview}
+            importing={importing}
+            onConfirm={handleConfirmImport}
+            onCancel={handleCloseImport}
+          />
+        )}
+      </BottomSheet>
     </div>
   )
 }
