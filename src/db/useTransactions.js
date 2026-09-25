@@ -66,6 +66,24 @@ export function useTransactions(selectedMonth) {
     await loadTransactions()
   }, [loadTransactions])
 
+  const addTransactionsBulk = useCallback(async (items) => {
+    if (!items || items.length === 0) return 0
+    const db = await getDB()
+    const tx = db.transaction('transactions', 'readwrite')
+    for (const data of items) {
+      await tx.store.add({
+        ...data,
+        amount: parseFloat(data.amount),
+        monthKey: getMonthKey(new Date(data.date)),
+        dateKey: getDateKey(new Date(data.date)),
+        createdAt: Date.now()
+      })
+    }
+    await tx.done
+    await loadTransactions()
+    return items.length
+  }, [loadTransactions])
+
   // Computed summaries
   const summary = {
     totalIncome: transactions
@@ -120,6 +138,7 @@ export function useTransactions(selectedMonth) {
     addTransaction,
     updateTransaction,
     deleteTransaction,
+    addTransactionsBulk,
     summary,
     groupedByDate,
     categoryBreakdown: Object.values(categoryBreakdown),

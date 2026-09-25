@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: var(--bottom-nav-height);
+  height: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
   background: var(--color-surface);
   border-top: 1px solid var(--color-border);
   padding-bottom: var(--safe-area-bottom);
@@ -60,7 +60,7 @@
 
 .bottom-nav-version {
   position: absolute;
-  bottom: 4px;
+  bottom: calc(4px + var(--safe-area-bottom));
   left: 50%;
   transform: translateX(-50%);
   font-size: 9px;

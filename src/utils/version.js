@@ -1,6 +1,23 @@
-export const APP_VERSION = '1.2.0'
+export const APP_VERSION = '1.3.1'
 
 export const CHANGELOG = [
+  {
+    version: '1.3.1',
+    date: '2026-09-25',
+    changes: [
+      'Fixed bottom navigation bar overflowing on iPhone PWA (safe-area fix)',
+      'Floating add button now sits above the navigation bar on notched iPhones',
+    ],
+  },
+  {
+    version: '1.3.0',
+    date: '2026-09-25',
+    changes: [
+      'Import transactions from a .txt file (Date/Type/Amount/Description format)',
+      'Automatic Buddhist year to CE date conversion',
+      'Preview before import with duplicate detection and category defaulting to Other',
+    ],
+  },
   {
     version: '1.2.0',
     date: '2026-08-23',

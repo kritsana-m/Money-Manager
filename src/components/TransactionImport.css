@@ -1,0 +1,104 @@
+.tx-import {
+  display: flex;
+  flex-direction: column;
+}
+
+.tx-import-filename {
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx-import-list-card {
+  padding: 0 var(--space-4);
+  margin-bottom: var(--space-4);
+  overflow: hidden;
+}
+
+.tx-import-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.tx-import-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2) 0;
+}
+
+.tx-import-row:not(:last-child) {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tx-import-row-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tx-import-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.tx-import-type {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.tx-import-type--expense {
+  background: var(--color-expense-bg);
+  color: var(--color-expense);
+}
+
+.tx-import-type--income {
+  background: var(--color-income-bg);
+  color: var(--color-income);
+}
+
+.tx-import-row-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.tx-import-note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.tx-import-amount {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tx-import-amount--expense {
+  color: var(--color-expense);
+}
+
+.tx-import-amount--income {
+  color: var(--color-income);
+}
+
+.tx-import-more {
+  padding: var(--space-2) 0 var(--space-3);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+}

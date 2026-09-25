@@ -3,6 +3,58 @@
   animation: fadeIn 0.2s ease;
 }
 
+.tx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.tx-import-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+
+.tx-import-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tx-import-page-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  background: var(--color-expense-bg);
+  color: var(--color-error);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-4);
+}
+
+.tx-import-page-error button {
+  border: none;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  padding: var(--space-1);
+}
+
 .loading-state {
   display: flex;
   align-items: center;
