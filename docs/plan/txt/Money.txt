@@ -1,0 +1,20 @@
+Date: 25/09/2569
+Type: EXPENSE
+Amount: 7,500
+Description: บัญชี xxx-x-x9532-x จำนวนเงิน 7,500.00 บาท วันที่ 25 ก.ย. 69 20:14 น.
+Date: 25/09/2569
+Type: EXPENSE
+Amount: 5,000
+Description: บัญชี xxx-x-x9532-x จำนวนเงิน 5,000.00 บาท วันที่ 25 ก.ย. 69 20:15 น.
+Date: 25/09/2569
+Type: EXPENSE
+Amount: 2,000.00
+Description: บัญชี xxx-x-x9532-x จำนวนเงิน 2,000.00 บาท วันที่ 25 ก.ย. 69 20:15 น.
+Date: 25/09/2569
+Type: EXPENSE
+Amount: 10,143
+Description: บัญชี xxx-x-x9532-x จำนวนเงิน 10,143.00 บาท วันที่ 25 ก.ย. 69 20:15 น.
+Date: 25/09/2569
+Type: INCOME
+Amount: 20
+Description: บัญชี xxx-x-x9532-x จำนวนเงิน 20.00 บาท วันที่ 25 ก.ย. 69 20:33 น.

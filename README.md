@@ -7,6 +7,7 @@ A mobile-first, offline-capable Progressive Web App for personal finance and mon
 ## Features
 - **Offline First**: All data is persisted locally in IndexedDB (via the lightweight `idb` wrapper).
 - **Transactions & Subscriptions**: Track monthly income, expenses, and installment-style or ongoing subscriptions.
+- **Google Sheets Sync**: Pull transactions pushed from iPhone Shortcuts (or anything) into the app via a Google Apps Script web app. See [`google-apps-script/README.md`](google-apps-script/README.md).
 - **Claude Design Aesthetic**: Cream backgrounds, soft clay/sage tones, rounded borders, and clean typography.
 - **Progressive Web App**: Fully installable on iOS, Android, and Desktop platforms.
 
