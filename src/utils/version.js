@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.3.1'
+export const APP_VERSION = '1.4.0'
 
 export const CHANGELOG = [
+  {
+    version: '1.4.0',
+    date: '2026-10-31',
+    changes: [
+      'Sync transactions from Google Sheets (Apps Script web app, pull-only)',
+      'iPhone Shortcuts can now POST bank notifications straight to Google Sheets',
+      'Google Sheet connection setup with optional secret token and duplicate-safe merge',
+    ],
+  },
   {
     version: '1.3.1',
     date: '2026-09-25',

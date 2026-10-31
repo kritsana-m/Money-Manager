@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react'
 import { Download, Upload, CheckCircle, AlertTriangle, ArrowLeft, FileText } from 'lucide-react'
 import { exportData, importData, validateImportData } from '../db/backup'
 import { formatCurrency } from '../utils/currency'
+import GoogleSheetSync from './GoogleSheetSync'
 import './SyncBackup.css'
 
 export default function SyncBackup() {
@@ -242,6 +243,8 @@ export default function SyncBackup() {
           </button>
         </div>
       </div>
+
+      <GoogleSheetSync />
 
       <input
         type="file"
