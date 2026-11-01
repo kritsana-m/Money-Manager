@@ -147,6 +147,13 @@ function _cellDate(v) {
   return _normalizeDate(v);
 }
 
+// Local Bangkok (+07:00, no DST) timestamp as readable "YYYY-MM-DD HH:mm:ss".
+function _bangkokTimestamp() {
+  var d = new Date(Date.now() + 7 * 60 * 60 * 1000);
+  return d.getUTCFullYear() + '-' + _pad(d.getUTCMonth() + 1) + '-' + _pad(d.getUTCDate())
+    + ' ' + _pad(d.getUTCHours()) + ':' + _pad(d.getUTCMinutes()) + ':' + _pad(d.getUTCSeconds());
+}
+
 /* ------------------------------------------------------------------ */
 /* GET — read all transactions                                         */
 /* ------------------------------------------------------------------ */
@@ -249,7 +256,7 @@ function doPost(e) {
       var k = it.date + '|' + it.type + '|' + String(it.amount) + '|' + it.note;
       if (seen[k]) continue;
       seen[k] = true;
-      rows.push([it.date, it.type, it.amount, it.note, it.source, new Date().toISOString()]);
+      rows.push([it.date, it.type, it.amount, it.note, it.source, _bangkokTimestamp()]);
       added++;
     }
 
