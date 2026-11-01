@@ -30,7 +30,8 @@ If you prefer, write the header row yourself on a tab named `Transactions`:
 Date | Type | Amount | Note | Source | CreatedAt
 ```
 
-(If the tab is missing the script creates it automatically.)
+(If the tab is missing the script creates it automatically. `CreatedAt` is
+written as local Bangkok time, `+07:00`, in `YYYY-MM-DD HH:mm:ss` format.)
 
 ## 2. Set up Apps Script
 
