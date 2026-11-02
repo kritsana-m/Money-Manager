@@ -84,18 +84,33 @@ export function parseTransactionFile(text) {
   return { transactions, errors }
 }
 
+// Sheet CreatedAt is "YYYY-MM-DD HH:mm:ss"; normalise to epoch ms so the dedupe
+// key and the stored createdAt are identical across pulls. 0 = no time known.
+export function createdAtMillis(value) {
+  if (!value) return 0
+  if (typeof value === 'number') return Number.isFinite(value) ? value : 0
+  const ms = new Date(String(value).replace(' ', 'T')).getTime()
+  return Number.isFinite(ms) ? ms : 0
+}
+
 export function dedupeTransactions(parsed, existing) {
-  const seen = new Set(
-    (existing || []).map(t => `${t.date}|${t.amount}|${t.type}|${(t.note || '').trim()}`)
-  )
+  const seen = new Set()
+  const seenContent = new Set()
+  for (const t of existing || []) {
+    const content = `${t.date}|${t.amount}|${t.type}|${(t.note || '').trim()}`
+    seenContent.add(content)
+    seen.add(t.createdAt ? `${content}|${createdAtMillis(t.createdAt)}` : content)
+  }
+  // Compare only against stored records. Two identical entries inside one file
+  // are two real records (no time exists to tell them apart), so both import.
   const items = []
   let duplicates = 0
-  for (const t of parsed) {
-    const key = `${t.date}|${t.amount}|${t.type}|${(t.note || '').trim()}`
-    if (seen.has(key)) {
+  for (const t of parsed || []) {
+    const content = `${t.date}|${t.amount}|${t.type}|${(t.note || '').trim()}`
+    const key = t.createdAt ? `${content}|${createdAtMillis(t.createdAt)}` : content
+    if (seen.has(key) || (!t.createdAt && seenContent.has(content))) {
       duplicates++
     } else {
-      seen.add(key)
       items.push(t)
     }
   }

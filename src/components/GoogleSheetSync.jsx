@@ -8,7 +8,7 @@ import {
   sheetRowsToItems
 } from '../utils/sheetSync'
 import { getDB } from '../db/database'
-import { dedupeTransactions, summarizeImport } from '../utils/importTransactions'
+import { dedupeTransactions, summarizeImport, createdAtMillis } from '../utils/importTransactions'
 import { getMonthKey, getDateKey } from '../utils/dates'
 import TransactionImport from './TransactionImport'
 import './SyncBackup.css'
@@ -17,12 +17,13 @@ async function addTransactionsBulk(items) {
   const db = await getDB()
   const tx = db.transaction('transactions', 'readwrite')
   for (const data of items) {
+    const ts = createdAtMillis(data.createdAt)
     await tx.store.add({
       ...data,
       amount: parseFloat(data.amount),
       monthKey: getMonthKey(new Date(data.date)),
       dateKey: getDateKey(new Date(data.date)),
-      createdAt: Date.now()
+      createdAt: ts || Date.now()
     })
   }
   await tx.done

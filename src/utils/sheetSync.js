@@ -84,6 +84,7 @@ export function sheetRowsToItems(rows) {
       ? rawAmount
       : parseFloat(String(rawAmount || '').replace(/,/g, ''))
     const note = String(row?.note || '').trim()
+    const createdAt = String(row?.createdAt || '').trim()
 
     const empty = !date && !type && (rawAmount === undefined || rawAmount === null || String(rawAmount).trim() === '')
     if (empty) continue // blank row in the sheet
@@ -92,7 +93,7 @@ export function sheetRowsToItems(rows) {
     if (type !== 'income' && type !== 'expense') { errors.push(`${date}: invalid type "${type}"`); continue }
     if (!Number.isFinite(amount) || amount <= 0) { errors.push(`${date}: invalid amount "${rawAmount}"`); continue }
 
-    items.push({ date, type, amount, category: 'other', note: note.slice(0, 100) })
+    items.push({ date, type, amount, category: 'other', note: note.slice(0, 100), createdAt })
   }
 
   return { items, errors }

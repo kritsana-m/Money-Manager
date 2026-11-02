@@ -117,6 +117,6 @@ import as a fallback.
 
 | Method | Params | Returns |
 | --- | --- | --- |
-| `GET` | `?key=<token>` | `{ ok, count, transactions: [{date, type, amount, note, source}] }` |
+| `GET` | `?key=<token>` | `{ ok, count, transactions: [{date, type, amount, note, source, createdAt}] }` |
 | `POST` text block | body = one or more `Date:/Type:/Amount:/Description:` blocks, `?key=<token>` | `{ ok, added, skipped, errors }` |
 | `POST` structured | form fields `date,type,amount,note` (DD/MM/YYYY or YYYY-MM-DD dates), `?key=<token>` | `{ ok, added, skipped, errors }` |

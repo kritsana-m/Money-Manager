@@ -1,6 +1,15 @@
-export const APP_VERSION = '1.4.0'
+export const APP_VERSION = '1.4.1'
 
 export const CHANGELOG = [
+  {
+    version: '1.4.1',
+    date: '2026-11-02',
+    changes: [
+      'Duplicate check now includes creation time: same-amount records on the same day are kept when recorded at different times',
+      'Google Sheet sync compares CreatedAt, so rows added or copied at a different time import instead of being skipped',
+      'Importing a file keeps repeated identical entries instead of dropping them',
+    ],
+  },
   {
     version: '1.4.0',
     date: '2026-10-31',
