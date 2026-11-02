@@ -179,7 +179,8 @@ function doGet(e) {
         type: type,
         amount: amount,
         note: note,
-        source: String(r[4] || '').trim()
+        source: String(r[4] || '').trim(),
+        createdAt: String(r[5] || '').trim()
       });
     }
     return _json({ ok: true, count: transactions.length, transactions: transactions });
@@ -238,25 +239,31 @@ function doPost(e) {
       return _json({ ok: false, error: 'No usable data (expected text starting with "Date:" or date/type/amount fields)', added: 0 }, 400);
     }
 
-    // Dedupe against rows already in the sheet (Date|Type|Amount|Note)
+    // Dedupe against rows already in the sheet (Date|Type|Amount|Note|CreatedAt).
+    // Time is part of the identity so two identical purchases (same day/amount)
+    // stay distinct; rows with no CreatedAt fall back to content-only so they
+    // are still protected from re-pushes.
     var seen = {};
     var existing = sh.getLastRow() >= 2
-      ? sh.getRange(2, 1, sh.getLastRow() - 1, 4).getValues()
+      ? sh.getRange(2, 1, sh.getLastRow() - 1, HEADER.length).getValues()
       : [];
     for (var x = 0; x < existing.length; x++) {
-      var key = _cellDate(existing[x][0]) + '|' + String(existing[x][1] || '').trim().toLowerCase()
-        + '|' + String(existing[x][2] || '').trim() + '|' + String(existing[x][3] || '').trim();
-      seen[key] = true;
+      var er = existing[x];
+      var ecl = _cellDate(er[0]) + '|' + String(er[1] || '').trim().toLowerCase()
+        + '|' + String(er[2] || '').trim() + '|' + String(er[3] || '').trim();
+      seen[ecl + '|' + String(er[5] || '').trim()] = true;
+      if (!String(er[5] || '').trim()) seen[ecl] = true;
     }
 
     var rows = [];
     var added = 0;
     for (var j = 0; j < items.length; j++) {
       var it = items[j];
-      var k = it.date + '|' + it.type + '|' + String(it.amount) + '|' + it.note;
-      if (seen[k]) continue;
-      seen[k] = true;
-      rows.push([it.date, it.type, it.amount, it.note, it.source, _bangkokTimestamp()]);
+      var ck = it.date + '|' + it.type + '|' + String(it.amount) + '|' + it.note;
+      var ts = _bangkokTimestamp();
+      if (seen[ck + '|' + ts]) continue;
+      seen[ck + '|' + ts] = true;
+      rows.push([it.date, it.type, it.amount, it.note, it.source, ts]);
       added++;
     }
 
